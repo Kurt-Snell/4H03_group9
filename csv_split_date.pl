@@ -21,24 +21,16 @@ open(my $csv, '<', $fl) or die "Cannot open file \'$fl\': $!";
 
 # Get headers and remove date-time to be replaced with year, month, day, UTC
 my $headers = <$csv>;
-$headers =~ s/^time,/year,month,day,UTC,/;
+$headers =~ s/^time,/year,month,day,hour,/;
 print $headers;
 
 # Process datetime
-my $utc;
 while(<$csv>) {
 
     # Only affect rows in proper format
-    if ( $_ =~ m/^\d\d\d\d\-\d\d\-\d\d (\d\d)\:00\:00\+0(\d)\:00,/ ) {
+    $_ =~ s/^(\d\d\d\d)\-(\d\d)\-(\d\d) (\d\d)\:00\:00\+\d\d\:00,/$1,$2,$3,$4,/;
 
-        # Change time into Zulu time (Spain will be +1 or +2 UTC)
-        $utc = $1 - $2;
-
-        # Separate year, month, and date
-        $_ =~ s/^(\d\d\d\d)\-(\d\d)\-(\d\d) \d\d\:00\:00\+\d\d\:00,/$1,$2,$3,$utc,/;
-
-        print $_;
-    }
+    print $_;
     
 }
 
