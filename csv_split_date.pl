@@ -34,5 +34,7 @@ while(<$csv>) {
     
 }
 
+close $csv;
+
 # 2015-01-21 18:00:00+01:00
 # YYYY-MM-DD HH:MM:SS+UTC_diff
