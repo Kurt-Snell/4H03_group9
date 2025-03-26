@@ -8,17 +8,24 @@
 clc, clear, close all;
 
 % Get raw data
+tabl = readtable("energy_dataset_proc.csv");
+headers = tabl.Properties.VariableNames;
 csv = table2array(readtable("energy_dataset_proc.csv", 'NumHeaderLines', 1));
-
-% Remove fully blank columns
-csv(:,all(ismissing(csv)))=[];
 
 % Remove columns of all zeros
 c = 1;
 while c < width(csv)
     if sum(csv(:,c), "omitmissing") == 0
         csv(:,c) = [];
+        headers(c) = [];
     else
         c = c + 1;
     end
 end
+
+% Save as csv
+writecell([headers; num2cell(csv)], "energy_dataset_proc_4.csv")
+fclose('all');
+
+
+
