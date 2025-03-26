@@ -4,10 +4,13 @@
 -- Updated: 26 March 2025
 -- MySQL query to combine energy and weather datasets
 
+-- Empty database
 CREATE DATABASE IF NOT EXISTS energy_weather;
+USE energy_weather;
 
+-- Energy table
 CREATE TABLE IF NOT EXISTS energy (
-        dttm INT UNSIGNED,
+        dttm LONGTEXT,
         generation_biomass INT UNSIGNED,
         generation_fossil_brown_coal_lignite INT UNSIGNED,
         generation_fossil_coal_derived_gas INT UNSIGNED,
@@ -39,6 +42,37 @@ CREATE TABLE IF NOT EXISTS energy (
         PRIMARY KEY(dttm)
 );
 
+-- Weather table
 CREATE TABLE IF NOT EXISTS weather (
-
+        dttm LONGTEXT,
+        city_name VARCHAR(255),
+        temp FLOAT,
+        temp_min FLOAT,
+        temp_max FLOAT,
+        pressure INT UNSIGNED,
+        humidity INT UNSIGNED,
+        wind_speed INT UNSIGNED,
+        wind_deg INT UNSIGNED,
+        rain_1h INT UNSIGNED,
+        rain_3h INT UNSIGNED,
+        snow_3h INT UNSIGNED,
+        clouds_all INT UNSIGNED,
+        weather_id INT UNSIGNED,
+        weather_main VARCHAR(255),
+        weather_description VARCHAR(255),
+        weather_icon VARCHAR(255),
+        PRIMArY KEY(dttm)
 );
+
+-- Import energy data
+-- LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/energy_dataset.csv' INTO TABLE energy_weather.energy;
+
+-- Import energy data
+LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/weather_features.csv' INTO TABLE energy_weather.weather;
+
+-- Combine tables into one 
+
+
+SHOW VARIABLES LIKE "secure_file_priv";
+
+
