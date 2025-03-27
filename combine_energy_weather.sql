@@ -5,12 +5,13 @@
 -- MySQL query to combine energy and weather datasets
 
 -- Empty database
+-- DROP DATABASE energy_weather;
 CREATE DATABASE IF NOT EXISTS energy_weather;
 USE energy_weather;
 
 -- Energy table
 CREATE TABLE IF NOT EXISTS energy (
-        dttm LONGTEXT,
+        dttm VARCHAR(255),
         generation_biomass INT UNSIGNED,
         generation_fossil_brown_coal_lignite INT UNSIGNED,
         generation_fossil_coal_derived_gas INT UNSIGNED,
@@ -20,7 +21,6 @@ CREATE TABLE IF NOT EXISTS energy (
         generation_fossil_oil_shale INT UNSIGNED,
         generation_fossil_peat INT UNSIGNED,
         generation_geothermal INT UNSIGNED,
-        generation_hydro_pumped_storage_aggregated INT UNSIGNED,
         generation_hydro_pumped_storage_consumption INT UNSIGNED,
         generation_hydro_run_of_river_and_poundage INT UNSIGNED,
         generation_hydro_water_reservoir INT UNSIGNED,
@@ -33,7 +33,6 @@ CREATE TABLE IF NOT EXISTS energy (
         generation_wind_offshore INT UNSIGNED,
         generation_wind_onshore INT UNSIGNED,
         forecast_solar_day_ahead INT UNSIGNED,
-        forecast_wind_offshore_eday_ahead INT UNSIGNED,
         forecast_wind_onshore_day_ahead INT UNSIGNED,
         total_load_forecast INT UNSIGNED,
         total_load_actual INT UNSIGNED,
@@ -44,8 +43,7 @@ CREATE TABLE IF NOT EXISTS energy (
 
 -- Weather table
 CREATE TABLE IF NOT EXISTS weather (
-        dttm LONGTEXT,
-        city_name VARCHAR(255),
+        dttm VARCHAR(255),
         temp FLOAT,
         temp_min FLOAT,
         temp_max FLOAT,
@@ -57,22 +55,78 @@ CREATE TABLE IF NOT EXISTS weather (
         rain_3h INT UNSIGNED,
         snow_3h INT UNSIGNED,
         clouds_all INT UNSIGNED,
-        weather_id INT UNSIGNED,
+        weather_id VARCHAR(255),
         weather_main VARCHAR(255),
         weather_description VARCHAR(255),
         weather_icon VARCHAR(255),
-        PRIMArY KEY(dttm)
+        PRIMARY KEY(dttm)
 );
 
 -- Import energy data
--- LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/energy_dataset.csv' INTO TABLE energy_weather.energy;
+LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/energy_dataset.csv' INTO TABLE energy_weather.energy
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(
+    dttm,
+    generation_biomass,
+    generation_fossil_brown_coal_lignite,
+    generation_fossil_coal_derived_gas,
+    generation_fossil_gas,
+    generation_fossil_hard_coal,
+    generation_fossil_oil,
+    generation_fossil_oil_shale,
+    generation_fossil_peat,
+    generation_geothermal,
+    generation_hydro_pumped_storage_consumption,
+    generation_hydro_run_of_river_and_poundage,
+    generation_hydro_water_reservoir,
+    generation_marine,
+    generation_nuclear,
+    generation_other,
+    generation_other_renewable,
+    generation_solar,
+    generation_waste,
+    generation_wind_offshore,
+    generation_wind_onshore,
+    forecast_solar_day_ahead,
+    forecast_wind_onshore_day_ahead,
+    total_load_forecast,
+    total_load_actual,
+    price_day_ahead,
+    price_actual
+);
 
 -- Import energy data
-LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/weather_features.csv' INTO TABLE energy_weather.weather;
+LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/weather_features_Barcelona.csv' INTO TABLE energy_weather.weather
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(
+	dttm,
+    temp,
+    temp_min,
+    temp_max,
+    pressure,
+    humidity,
+    wind_speed,
+    wind_deg,
+    rain_1h,
+    rain_3h,
+    snow_3h,
+    clouds_all,
+    weather_id,
+    weather_main,
+    weather_description,
+    weather_icon
+);
 
--- Combine tables into one 
+-- Combine tables into one and export into a CSV
+SELECT * FROM weather INNER JOIN energy ON weather.dttm=energy.dttm
+INTO OUTFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Barcelona.csv'
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n';
 
-
-SHOW VARIABLES LIKE "secure_file_priv";
-
+-- Run this query to find your MySQL Server Upload directory (you may have to switch "\" to "/")
+-- SHOW VARIABLES LIKE "secure_file_priv";
 

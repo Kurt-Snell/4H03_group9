@@ -8,9 +8,9 @@
 clc, clear, close all;
 
 % Get raw data
-tabl = readtable("energy_dataset_proc.csv");
+tabl = readtable("weather_features_Valencia.csv");
 headers = tabl.Properties.VariableNames;
-csv = table2array(readtable("energy_dataset_proc.csv", 'NumHeaderLines', 1));
+csv = table2array(readtable("weather_features_Valencia.csv", 'NumHeaderLines', 1));
 
 % Remove columns of all zeros
 c = 1;
@@ -24,7 +24,7 @@ while c < width(csv)
 end
 
 % Save as csv
-writecell([headers; num2cell(csv)], "energy_dataset_proc_4.csv")
+writecell([headers; num2cell(csv)], "wfp_Valencia.csv")
 fclose('all');
 
 
