@@ -5,7 +5,7 @@
 -- MySQL query to combine energy and weather datasets
 
 -- Empty database
--- DROP DATABASE energy_weather;
+DROP DATABASE energy_weather;
 CREATE DATABASE IF NOT EXISTS energy_weather;
 USE energy_weather;
 
@@ -98,7 +98,7 @@ IGNORE 1 LINES
 );
 
 -- Import energy data
-LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/weather_features_Barcelona.csv' INTO TABLE energy_weather.weather
+LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/weather_features_Madrid.csv' INTO TABLE energy_weather.weather
 FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
 IGNORE 1 LINES
@@ -121,11 +121,33 @@ IGNORE 1 LINES
     weather_icon
 );
 
--- Combine tables into one and export into a CSV
-SELECT * FROM weather INNER JOIN energy ON weather.dttm=energy.dttm
-INTO OUTFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Barcelona.csv'
-FIELDS TERMINATED BY ','
-LINES TERMINATED BY '\n';
+-- Combine tables into one and export into a CSV with headers
+-- SELECT "dttm", "temp", "temp_min", "temp_max", "pressure", "humidity", "wind_speed", "wind_deg", "rain_1h", "rain_3h", 
+-- "snow_3h", "clouds_all", "weather_id", "weather_main", "weather_description", "weather_icon", "generation_biomass",
+-- "generation_fossil_brown_coal_lignite", "generation_fossil_coal_derived_gas", "generation_fossil_gas", "generation_fossil_hard_coal",
+-- "generation_fossil_oil", "generation_fossil_oil_shale", "generation_fossil_peat", "generation_geothermal", 
+-- "generation_hydro_pumped_storage_consumption", "generation_hydro_run_of_river_and_poundage", "generation_hydro_water_reservoir", 
+-- "generation_marine", "generation_nuclear", "generation_other", "generation_other_renewable", "generation_solar", "generation_waste", 
+-- "generation_wind_offshore", "generation_wind_onshore", "forecast_solar_day_ahead", "forecast_wind_onshore_day_ahead", 
+-- "total_load_forecast", "total_load_actual", "price_day_ahead", "price_actual"
+-- UNION ALL
+-- SELECT *
+-- SELECT temp, temp_min, temp_max, pressure, humidity, wind_speed, wind_deg, rain_1h, rain_3h, snow_3h, clouds_all, weather_id,
+-- weather_main, weather_description, weather_icon, generation_biomass, generation_fossil_brown_coal_lignite, generation_fossil_coal_derived_gas,
+-- generation_fossil_gas, generation_fossil_hard_coal, generation_fossil_oil, generation_fossil_oil_shale, generation_fossil_peat, generation_geothermal,
+-- generation_hydro_pumped_storage_consumption, generation_hydro_run_of_river_and_poundage, generation_hydro_water_reservoir, generation_marine,
+-- generation_hydro_pumped_storage_consumption, generation_hydro_run_of_river_and_poundage, generation_hydro_water_reservoir, generation_marine,
+-- generation_nuclear, generation_other, generation_other_renewable, generation_solar, generation_waste, generation_wind_offshore,
+-- generation_wind_onshore, forecast_solar_day_ahead, forecast_wind_onshore_day_ahead, total_load_forecast, total_load_actual, price_day_ahead, price_actual
+-- INTO OUTFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Barcelona.csv'
+-- FIELDS TERMINATED BY ','
+-- OPTIONALLY ENCLOSED BY '"'
+-- LINES TERMINATED BY '\n'
+-- FROM weather INNER JOIN energy ON weather.dttm=energy.dttm;
+
+SELECT * FROM weather INNER JOIN energy ON weather.dttm=energy.dttm;
+
+
 
 -- Run this query to find your MySQL Server Upload directory (you may have to switch "\" to "/")
 -- SHOW VARIABLES LIKE "secure_file_priv";
