@@ -1,3 +1,4 @@
 # Ignore non-data and non-technical files
 *.docx
 *.pdf
+*.zip
