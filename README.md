@@ -3,7 +3,7 @@
 ## Members
 - Kurt Snell (snellk1@mcmaster.ca)
 - Madeline Wighadrt (wighardm@mcmaster.ca)
-- Guila Morris-Cefis (morrig13@mcmaster.ca)
+- Giulia Morris-Cefis (morrig13@mcmaster.ca)
 
 ## Description
 A public Git-version controlled repository for McMaster's CHEMENG 4H03 course final project. Data in the form of CSVs are processed and analyzed using big data methods and modelling. Information from the analysis is formatted into deliverables and submitted.
