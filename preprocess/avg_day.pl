@@ -5,7 +5,7 @@
 # Created: 6 April 2025
 # Updated: 6 April 2025
 
-# Perl script to dump headers of a CSV
+# Perl script to get average weather data and total energy generation for a day
 # In the current working directory, call `perl avg_day.pl "filename.csv"`
 
 # Compatibility control
@@ -36,9 +36,7 @@ my $hours = 0;
 while ( <$csv> ) {
 
     # Get current day and a list of weather data and a list of energy data
-    # print $_;
-    # if ( $_ =~ m/^[\s\d\:\+\-]*,(\d*,\d*),(\d*),\d*,([\d\.]*,\d*,\d*,\d*,\d*,\d*),([\d\s\,]*),([\d\.]*,[\d\.]*)$/) {
-    if ( $_ =~ m/^[\s\d\:\+\-]*,(\d*,\d*),(\d*),\d*,([\d\.]*,\d*,\d*,\d*,\d*,\d*),([\d\,]*),([\s\d\.]*\,[\s\d\.]*)$/) {
+    if ( $_ =~ m/^[\s\d\:\+\-]*,(\d*,\d*),(\d*),\d*,([\d\.]*,\d*,\d*,\d*,\d*,\d*),([\d\,]*),([\s\d\.]*\,[\s\d\.]*)$/ ) {
 
         @weather = split(/,/, $3);
         @energy  = split(/,/, $4);
