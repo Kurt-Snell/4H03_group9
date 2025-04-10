@@ -29,10 +29,9 @@ my $dttm;
 while(<$csv>) {
 
     # Only affect rows in proper format
-    $_ =~ m/^(\d\d\d\d\-\d\d\-\d\d \d\d\:00\:00\+\d\d\:00,)/;
+    $_ =~ m/^(\d\d\d\d\-\d\d\-\d\d \d\d\:00\:00\+\d\d\:00),/;
     $dttm = $1;
-    $_ =~ s/^(\d\d\d\d)\-(\d\d)\-(\d\d) (\d\d)\:00\:00\+\d\d\:00,/$dttm$1,$2,$3,$4,/;
-
+    $_ =~ s/^(\d\d\d\d)\-(\d\d)\-(\d\d) (\d\d)\:00\:00\+\d\d\:00\,/$dttm,$1,$2,$3,$4,/;
     print $_;
     
 }

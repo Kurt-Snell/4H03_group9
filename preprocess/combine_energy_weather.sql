@@ -314,7 +314,7 @@ UNION ALL
 SELECT * FROM valencia
 INTO OUTFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/valencia.csv'
 FIELDS TERMINATED BY ','
-OPTIONALLY ENCLOSED BY '"'
+ENCLOSED BY '"'
 LINES TERMINATED BY '\n';
 
 CREATE TABLE madrid AS SELECT * FROM weather_madrid INNER JOIN energy ON weather_madrid.dttmw=energy.dttme;
@@ -330,7 +330,7 @@ UNION ALL
 SELECT * FROM madrid
 INTO OUTFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/madrid.csv'
 FIELDS TERMINATED BY ','
-OPTIONALLY ENCLOSED BY '"'
+ENCLOSED BY '"'
 LINES TERMINATED BY '\n';
 
 CREATE TABLE barcelona AS SELECT * FROM weather_barcelona INNER JOIN energy ON weather_barcelona.dttmw=energy.dttme;
@@ -346,7 +346,7 @@ UNION ALL
 SELECT * FROM barcelona
 INTO OUTFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/barcelona.csv'
 FIELDS TERMINATED BY ','
-OPTIONALLY ENCLOSED BY '"'
+ENCLOSED BY '"'
 LINES TERMINATED BY '\n';
 
 CREATE TABLE bilbao AS SELECT * FROM weather_bilbao INNER JOIN energy ON weather_bilbao.dttmw=energy.dttme;
@@ -362,7 +362,7 @@ UNION ALL
 SELECT * FROM bilbao
 INTO OUTFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/bilbao.csv'
 FIELDS TERMINATED BY ','
-OPTIONALLY ENCLOSED BY '"'
+ENCLOSED BY '"'
 LINES TERMINATED BY '\n';
 
 CREATE TABLE seville AS SELECT * FROM weather_seville INNER JOIN energy ON weather_seville.dttmw=energy.dttme;
@@ -378,7 +378,7 @@ UNION ALL
 SELECT * FROM seville
 INTO OUTFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/seville.csv'
 FIELDS TERMINATED BY ','
-OPTIONALLY ENCLOSED BY '"'
+ENCLOSED BY '"'
 LINES TERMINATED BY '\n';
 
 -- Run this query to find your MySQL Server Upload directory (you may have to switch "\" to "/")
