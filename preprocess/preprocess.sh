@@ -47,5 +47,5 @@ done
 
 # Get relative data
 for city in valencia madrid barcelona bilbao seville ; do
-    perl rel_gen.pl ../data/daily/${city}_daily_average.csv > ../data/percent/${city}_rel_gen.csv
+    perl rel_gen.pl ../data/daily/${city}_daily_average.csv > ../data/percent/${city}_percent.csv
 done
